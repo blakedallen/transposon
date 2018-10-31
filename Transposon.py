@@ -93,7 +93,12 @@ class Transposon(object):
 
 	def transpose(self):
 		""" Transpose is another mutation function where we mimic actual transposons
-		moving a random sequence from one location and inserting it into another location"""
+		moving a random sequence from one location and inserting it into another location
+		
+		If a transposon is chosen for this individual, 
+		a random insertion point will be chosen and a transposon of the chosen length will be created. 
+
+		"""
 		if self.mutation_rate == 0:
 			return
 
@@ -102,16 +107,21 @@ class Transposon(object):
 		for i,individual in enumerate(self.population):
 			do_transposon = np.random.choice(2, 1, p=[1.0-self.transposon_rate, self.transposon_rate])
 			
+			combined_vec = individual
 			if do_transposon[0] == 1:
 				#transposon
-				pass
+				extract_point = random.randint(0, len(individual))
+				insert_point = random.randint(0, len(individual))
+				end_point = extract_point + self.transposon_len
+				if end_point >= len(individual):
+					end_point = len(individual)
+				transposon = individual[extract_point:end_point]
+				combined_vec = individual[:extract_point] + individual[end_point:]
+				combined_vec = combined_vec[:insert_point] + transposon + combined_vec[insert_point:]
 			else:
 				#no transposon
 				pass
-
-			combined_vec = []
-
-			
+			mutated_population.append(combined_vec)
 
 		#now we preserve our best individuals and drop the last x mutated individuals
 		num_best = int(self.winner_pool*self.population_size)

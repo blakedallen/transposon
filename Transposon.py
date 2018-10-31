@@ -14,6 +14,8 @@ class Transposon(object):
 			max_fitness=1.0,
 			max_generations=1000,
 			mutation_rate=0.13,
+			transposon_rate=0.13,
+			transposon_len=5,
 			winner_pool=0.10,
 			verbose=False):
 		
@@ -92,7 +94,28 @@ class Transposon(object):
 	def transpose(self):
 		""" Transpose is another mutation function where we mimic actual transposons
 		moving a random sequence from one location and inserting it into another location"""
-		pass
+		if self.mutation_rate == 0:
+			return
+
+		mutated_population = []
+		
+		for i,individual in enumerate(self.population):
+			do_transposon = np.random.choice(2, 1, p=[1.0-self.transposon_rate, self.transposon_rate])
+			
+			if do_transposon[0] == 1:
+				#transposon
+				pass
+			else:
+				#no transposon
+				pass
+
+			combined_vec = []
+
+			
+
+		#now we preserve our best individuals and drop the last x mutated individuals
+		num_best = int(self.winner_pool*self.population_size)
+		self.population = self.population[:num_best] + mutated_population[:len(mutated_population)-num_best]
 
 	def breed(self, replace=True):
 		""" given the top x percent breed new solutions """

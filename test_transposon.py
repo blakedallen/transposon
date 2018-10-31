@@ -47,7 +47,10 @@ class TestTransposon(unittest.TestCase):
 
 	def test_mutate(self):
 		""" test our mutate function"""
+		pass
 
+	def test_transpose(self):
+		""" test our transpose function"""
 		pass
 
 	def test_breed(self):

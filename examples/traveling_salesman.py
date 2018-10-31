@@ -6,7 +6,7 @@ Attempts to solve the traveling salesman problem using genetic algorithms
 
 import sys
 sys.path.append("..") # Adds higher directory to python modules path.
-from base import Transposon
+from Transposon import Transposon
 import geopy.distance
 
 cities = {

@@ -30,6 +30,8 @@ class Transposon(object):
 		self.mutation_rate = mutation_rate
 		self.min_value = min_value
 		self.max_value = max_value
+		self.transposon_len = transposon_len
+		self.transposon_rate = transposon_rate
 		self.initialize()
 
 	def initialize(self):
@@ -96,7 +98,7 @@ class Transposon(object):
 		moving a random sequence from one location and inserting it into another location
 		
 		If a transposon is chosen for this individual, 
-		a random insertion point will be chosen and a transposon of the chosen length will be created. 
+		a transposon of the chosen length will be extracted and randomly inserted 
 
 		"""
 		if self.mutation_rate == 0:
@@ -110,8 +112,8 @@ class Transposon(object):
 			combined_vec = individual
 			if do_transposon[0] == 1:
 				#transposon
-				extract_point = random.randint(0, len(individual))
-				insert_point = random.randint(0, len(individual))
+				extract_point = randint(0, len(individual))
+				insert_point = randint(0, len(individual))
 				end_point = extract_point + self.transposon_len
 				if end_point >= len(individual):
 					end_point = len(individual)
@@ -182,6 +184,7 @@ class Transposon(object):
 				return self.population
 			self.breed()
 			self.mutate()
+			self.transpose()
 		#reached max generations without getting a max_fitness
 		return self.population
 

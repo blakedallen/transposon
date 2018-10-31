@@ -12,18 +12,20 @@ Transposon attempts to solve complex problems through evolutionary algorithms. T
 
 ### Example instantiation:
 ```python
-	transposon = Transposon(
-		vector_len=len(cities),
-		fitness_func=fitness_func,
-		min_value=0,
-		max_value=max_value,
-		population_size=1000,
-		max_fitness=MAX_FITNESS,
-		max_generations=100,
-		mutation_rate=0.13,
-		verbose=True)
-	results = transposon.evolve()
-	print("BEST RESULT :", results[0])
+transposon = Transposon(
+	vector_len=len(cities),
+	fitness_func=fitness_func,
+	min_value=0,
+	max_value=max_value,
+	population_size=1000,
+	max_fitness=MAX_FITNESS,
+	max_generations=100,
+	mutation_rate=0.13,
+	transposon_rate=0.13,
+	transposon_len=5,
+	verbose=True)
+results = transposon.evolve()
+print("BEST RESULT :", results[0])
 
 ```
 
@@ -64,7 +66,11 @@ Note: some optimization problems try to minimize a fitness, see the traveling sa
 
 `max_generations = <int>` The maximum number of generations that will be run before either reaching the desired fitness or quitting
 
-`mutation_rate = <float>` The rate of random mutations occuring, must be between 0.0 and 1.0
+`mutation_rate = <float>` The rate of random mutations occuring per item in array, sampled independently. Each item in the array will be mutated based on this probability to a random value within the acceptable range. Value must be between 0.0 and 1.0
+
+`transposon_rate=<float>` The rate at which an individual is selected for a transposon insertion. If the individual is selected then there will be a random transposon extraction/insertion.  
+
+`transposon_len=<int>` The length of the transposon sequence which will be shuffled. 
 
 `winner_pool = <float>` The percentage of "winners" we will retain from generation to generation. Must be between 0.0 and 1.0. 
 

@@ -52,6 +52,8 @@ cities = {
 	"Kent, WA": [47.380932,-122.234840]
 }
 
+#here we manually set our max fitness, since our actual desired fitness is unknown
+#ie: we don't know the shortest path ahead of time
 MAX_FITNESS = 9999999
 CITYLIST = []
 
@@ -74,12 +76,12 @@ def main():
 		verbose=True)
 	results = transposon.evolve()
 	#given the best result, print the path
-	print("Optimal path")
+	print("Optimal path:")
 	best_vector = convert_vector(results[0])
 	for city in best_vector:
 		print(city)
 	#now print the total distance
-	print("Total Distance:", MAX_FITNESS - fitness_func(results[0]))
+	print("Total Distance:", MAX_FITNESS - fitness_func(results[0]), " km")
 
 
 def convert_vector(vector):

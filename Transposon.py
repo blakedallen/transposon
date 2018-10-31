@@ -34,12 +34,13 @@ class Transposon(object):
 		""" sets up our population and asserts 
 		our fitness func is of correct type
 		"""
+
+		assert self.fitness_func != None
 		#setup a random vector and assert that our fitness_func is of correct type
 		random_vector = self.create_vector()
 		#use our fitness function, assert that the value is correct
 		fitness = self.fitness_func(random_vector)
 		assert fitness >= 0.0
-		assert fitness <= self.max_fitness
 		#now create our population
 		population = [random_vector]
 		for i in range(1,self.population_size):

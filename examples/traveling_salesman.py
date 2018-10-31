@@ -71,7 +71,7 @@ def main():
 		max_value=max_value,
 		population_size=1000,
 		max_fitness=MAX_FITNESS,
-		max_generations=1000,
+		max_generations=100,
 		mutation_rate=0.13,
 		verbose=True)
 	results = transposon.evolve()

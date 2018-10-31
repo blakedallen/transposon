@@ -15,6 +15,16 @@ class TestTransposon(unittest.TestCase):
 		#assert that we check our fitness function for a valid fitness
 		self.assertRaises(AssertionError, Transposon, fitness_func=fitness_func_oob)
 
+		#assert that we check our fitness function for a valid mutation rate (can be zero but must be above zero)
+		self.assertRaises(AssertionError, Transposon, fitness_func=fitness_func_sum3, mutation_rate=-1.0)
+
+		#assert that our winner pool isn't an invalid number
+		self.assertRaises(AssertionError, Transposon, fitness_func=fitness_func_sum3, winner_pool=-1)
+		self.assertRaises(AssertionError, Transposon, fitness_func=fitness_func_sum3, winner_pool=20)
+
+		#assert that our vector length is 0 < x 
+		self.assertRaises(AssertionError, Transposon, fitness_func=fitness_func_sum3, vector_len=0)
+
 
 	def test_create_vector(self):
 		""" Test the create vector method is of correct size and range """
@@ -37,6 +47,7 @@ class TestTransposon(unittest.TestCase):
 
 	def test_mutate(self):
 		""" test our mutate function"""
+
 		pass
 
 	def test_breed(self):

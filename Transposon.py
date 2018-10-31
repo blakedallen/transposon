@@ -34,8 +34,13 @@ class Transposon(object):
 		""" sets up our population and asserts 
 		our fitness func is of correct type
 		"""
-
+		assert self.mutation_rate >= 0.0
+		assert self.mutation_rate <= 1.0
 		assert self.fitness_func != None
+		assert self.winner_pool >= 0.0
+		assert self.winner_pool <= 1.0
+		assert self.vector_len >= 0.0
+
 		#setup a random vector and assert that our fitness_func is of correct type
 		random_vector = self.create_vector()
 		#use our fitness function, assert that the value is correct
@@ -59,6 +64,10 @@ class Transposon(object):
 		""" create mutations randomly based on the mutation rate
 		preserves winner pool so that the best individuals aren't mutated
 		"""
+		
+		if self.mutation_rate == 0:
+			return
+
 		mutated_population = []
 		
 		for i,individual in enumerate(self.population):
@@ -78,6 +87,12 @@ class Transposon(object):
 		#now we preserve our best individuals and drop the last x mutated individuals
 		num_best = int(self.winner_pool*self.population_size)
 		self.population = self.population[:num_best] + mutated_population[:len(mutated_population)-num_best]
+
+
+	def transpose(self):
+		""" Transpose is another mutation function where we mimic actual transposons
+		moving a random sequence from one location and inserting it into another location"""
+		pass
 
 	def breed(self, replace=True):
 		""" given the top x percent breed new solutions """
